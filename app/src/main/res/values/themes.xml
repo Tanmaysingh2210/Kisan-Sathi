@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <style name="Theme.KisanSathi.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/white</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/kisan_logo</item>
+        <item name="postSplashScreenTheme">@style/Theme.KisanSathi</item>
+    </style>
     <style name="Theme.KisanSathi" parent="android:Theme.Material.Light.NoActionBar" />
 </resources>
