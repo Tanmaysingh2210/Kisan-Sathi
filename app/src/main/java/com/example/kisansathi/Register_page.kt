@@ -124,7 +124,7 @@ fun RegisterScreen( navController: NavController?=null, onRegisterSuccess: () ->
         Button(
             onClick = {
                 if( email.isNotBlank() && password.isNotBlank() && name.isNotBlank() ){
-                    navController?.navigate("dashboard")
+                        onRegisterSuccess()
                 }
             },
             modifier = Modifier.fillMaxWidth(),

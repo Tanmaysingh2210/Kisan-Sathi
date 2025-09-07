@@ -1,10 +1,12 @@
 package com.example.kisansathi
 
+import android.os.Build
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Text
@@ -21,6 +23,7 @@ import com.example.kisansathi.ui.theme.KisanSathiTheme
 import kotlinx.coroutines.delay
 
 class MainActivity : ComponentActivity() {
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         // Enable Splash Screen
         installSplashScreen()
@@ -50,18 +53,22 @@ object AppDestinations {
     const val REGISTER_SCREEN = "RegisterScreen"
     const val SIGN_UP_SCREEN = "signup" // If you also have a sign-up screen
     // ... other destinations
+
+    const val OTP_SCREEN ="OtpScreen"
+    const val DASHBOARD_SCREEN ="dashboard"
 }
+@RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun MainAppContent() {
-    Log.d("NavigationDebug", "MainAppContent: Composing")
+
     val navController = rememberNavController()
-    Log.d("NavigationDebug", "MainAppContent: NavHost startDestination = ${AppDestinations.AUTH_CHOICE_SCREEN}")
+
     NavHost(navController = navController, startDestination = AppDestinations.AUTH_CHOICE_SCREEN) {
         composable(AppDestinations.AUTH_CHOICE_SCREEN) {
-            Log.d("NavigationDebug", "NavHost: Composing AUTH_CHOICE_SCREEN")
+
             AuthChoiceScreen(
                 onLoginClick = {
-                    Log.d("NavigationDebug", "NavHost: Composing LOGIN_SCREEN")
+
                     navController.navigate(AppDestinations.LOGIN_SCREEN)
                 },
                 onSignUpClick = {
@@ -73,7 +80,7 @@ fun MainAppContent() {
             LoginScreen(
                 navController = navController,
                 onLoginSuccess = {
-                    navController.navigate("dashboard") {
+                    navController.navigate(AppDestinations.DASHBOARD_SCREEN) {
                         popUpTo(AppDestinations.LOGIN_SCREEN) { inclusive = true }
                     }
                 }) // Call your LoginScreen composable
@@ -82,12 +89,26 @@ fun MainAppContent() {
             RegisterScreen(
                 navController = navController,
                 onRegisterSuccess = {
-                    navController.navigate("dashboard") {
-                        popUpTo(AppDestinations.LOGIN_SCREEN) { inclusive = true }
+                    navController.navigate(AppDestinations.OTP_SCREEN) {
+                        popUpTo(AppDestinations.REGISTER_SCREEN) { inclusive = true }
                     }
                 }) // Call your LoginScreen composable
         }
 //        composable("dashboard") { DashboardPage() }
+
+        composable(AppDestinations.OTP_SCREEN) {
+            OtpScreen(
+                navController = navController,
+                onOtpVerified = {
+                    navController.navigate(AppDestinations.DASHBOARD_SCREEN) {
+                        popUpTo(AppDestinations.OTP_SCREEN) { inclusive = true }
+                    }
+                }) // Call your LoginScreen composable
+        }
+        composable(AppDestinations.DASHBOARD_SCREEN) {
+            DashboardPage()
+        }
+
     }
 }
 
