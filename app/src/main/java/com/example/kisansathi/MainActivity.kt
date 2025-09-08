@@ -51,10 +51,10 @@ object AppDestinations {
     const val AUTH_CHOICE_SCREEN = "AuthChoiceScreen"
     const val LOGIN_SCREEN = "LoginScreen"
     const val REGISTER_SCREEN = "RegisterScreen"
-    const val SIGN_UP_SCREEN = "signup" // If you also have a sign-up screen
-    // ... other destinations
+    const val SIGN_UP_SCREEN = "signup"
 
-    const val OTP_SCREEN ="OtpScreen"
+
+    const val OTP_SCREEN ="OtpScreen/{email}"
     const val DASHBOARD_SCREEN ="dashboard"
 }
 @RequiresApi(Build.VERSION_CODES.N)
@@ -83,28 +83,33 @@ fun MainAppContent() {
                     navController.navigate(AppDestinations.DASHBOARD_SCREEN) {
                         popUpTo(AppDestinations.LOGIN_SCREEN) { inclusive = true }
                     }
-                }) // Call your LoginScreen composable
+                })
         }
+
         composable(AppDestinations.REGISTER_SCREEN) {
             RegisterScreen(
                 navController = navController,
-                onRegisterSuccess = {
-                    navController.navigate(AppDestinations.OTP_SCREEN) {
+                onRegisterSuccess = { email ->
+                    navController.navigate("OtpScreen/$email") {
                         popUpTo(AppDestinations.REGISTER_SCREEN) { inclusive = true }
                     }
-                }) // Call your LoginScreen composable
+                }
+            )
         }
-//        composable("dashboard") { DashboardPage() }
 
-        composable(AppDestinations.OTP_SCREEN) {
+        composable(AppDestinations.OTP_SCREEN) { backStackEntry ->
+            val email = backStackEntry.arguments?.getString("email") ?: ""
             OtpScreen(
                 navController = navController,
                 onOtpVerified = {
                     navController.navigate(AppDestinations.DASHBOARD_SCREEN) {
                         popUpTo(AppDestinations.OTP_SCREEN) { inclusive = true }
                     }
-                }) // Call your LoginScreen composable
+                },
+                email = email
+            )
         }
+
         composable(AppDestinations.DASHBOARD_SCREEN) {
             DashboardPage()
         }

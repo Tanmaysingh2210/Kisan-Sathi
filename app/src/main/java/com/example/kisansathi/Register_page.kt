@@ -40,7 +40,7 @@ import com.example.kisansathi.ui.theme.AuthChoiceScreen
 import com.example.kisansathi.ui.theme.Dot
 
 @Composable
-fun RegisterScreen( navController: NavController?=null, onRegisterSuccess: () -> Unit )
+fun RegisterScreen( navController: NavController?=null, onRegisterSuccess: (String) -> Unit )
 {
     var name by remember {mutableStateOf(value= "")}
     var email by remember { mutableStateOf("") }
@@ -124,7 +124,7 @@ fun RegisterScreen( navController: NavController?=null, onRegisterSuccess: () ->
         Button(
             onClick = {
                 if( email.isNotBlank() && password.isNotBlank() && name.isNotBlank() ){
-                        onRegisterSuccess()
+                        onRegisterSuccess(email)
                 }
             },
             modifier = Modifier.fillMaxWidth(),

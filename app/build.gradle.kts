@@ -40,6 +40,8 @@ android {
 }
 
 dependencies {
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("androidx.core:core-splashscreen:1.0.1")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -50,9 +52,11 @@ dependencies {
     implementation("androidx.compose.ui:ui:1.6.7")
     implementation("androidx.compose.ui:ui-tooling-preview:1.6.7")
     implementation(libs.material3)
-    implementation(libs.androidx.navigation.compose)
-    implementation(libs.androidx.runtime)
-    implementation(libs.ui)
+    implementation("androidx.compose.ui:ui:1.6.7")
+    implementation("androidx.navigation:navigation-compose:2.7.7")
+    implementation("androidx.compose.runtime:runtime:1.6.7")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
+    implementation(libs.firebase.appdistribution.gradle)
     debugImplementation("androidx.compose.ui:ui-tooling:1.6.7")
     implementation("androidx.activity:activity-compose:1.9.0")
     implementation(libs.androidx.ui)
@@ -66,5 +70,15 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    // Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.11.0")
+// Gson (for JSON parsing)
+    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
+// Coroutines (for suspend functions)
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
+// Lifecycle (to use viewModelScope or LaunchedEffect safely)
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.4")
+
 
 }
