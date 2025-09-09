@@ -15,6 +15,8 @@ android {
         versionCode = 1
         versionName = "1.0"
 
+
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -37,6 +39,8 @@ android {
     buildFeatures {
         compose = true
     }
+
+
 }
 
 dependencies {
@@ -57,6 +61,7 @@ dependencies {
     implementation("androidx.compose.runtime:runtime:1.6.7")
     implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
     implementation(libs.firebase.appdistribution.gradle)
+    implementation(libs.play.services.identity.credentials)
     debugImplementation("androidx.compose.ui:ui-tooling:1.6.7")
     implementation("androidx.activity:activity-compose:1.9.0")
     implementation(libs.androidx.ui)
