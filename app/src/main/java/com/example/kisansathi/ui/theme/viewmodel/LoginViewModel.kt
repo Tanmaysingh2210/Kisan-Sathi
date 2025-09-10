@@ -9,30 +9,31 @@ import com.example.kisansathi.ui.theme.models.registration_request
 import com.example.kisansathi.ui.theme.models.registration_response
 //import com.google.android.gms.identitycredentials.RegistrationRequest
 import com.example.kisansathi.network.RetrofitInstance
+import com.example.kisansathi.ui.theme.models.LoginRequest
+import com.example.kisansathi.ui.theme.models.LoginResponse
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 
-class RegisterViewModel : ViewModel() { // In a real app, inject AuthRepository
+class LoginViewModel : ViewModel() { // In a real app, inject AuthRepository
 
 
     private val authRepository = AuthRepository(RetrofitInstance.api)
 
-    private val _registrationResult = MutableStateFlow<ApiResult<registration_response>?>(null)
-    val registrationResult: StateFlow<ApiResult<registration_response>?> = _registrationResult
+    private val _loginResult = MutableStateFlow<ApiResult<LoginResponse>?>(null)
+    val loginResult: StateFlow<ApiResult<LoginResponse>?> = _loginResult
 
-    fun registerUser(name: String, email: String, password: String) {
+    fun loginUser( email: String, password: String) {
         viewModelScope.launch {
-            _registrationResult.value = ApiResult.Loading
+            _loginResult.value = ApiResult.Loading
             try {
 
-                val request = registration_request(
-                    name = name,
+                val request = LoginRequest(
                     email = email,
                     password = password
                 )
-                val response = authRepository.registerUser(request)
+                val response = authRepository.loginUser(request)
 
 //                if (response.isSuccessful && response.body() != null) {
 //                    _registrationResult.value = ApiResult.Success(response.body()!!)
@@ -41,27 +42,27 @@ class RegisterViewModel : ViewModel() { // In a real app, inject AuthRepository
 //                    _registrationResult.value = ApiResult.Error(errorMsg, response.code())
 //                }
                 if (response.isSuccessful) {
-                    val responseBody = response.body() as com.example.kisansathi.ui.theme.models.registration_response
+                    val responseBody = response.body()
                     if (responseBody != null) {
-                        _registrationResult.value = ApiResult.Success(responseBody) // No '!!' needed here due to the check
+                        _loginResult.value = ApiResult.Success(responseBody) // No '!!' needed here due to the check
                     } else {
                         // This case means response was successful (e.g., 200 OK) BUT the body was null.
                         // This is unusual for a registration response but possible.
                         // Handle as an error or a specific success-with-no-data case.
-                        _registrationResult.value = ApiResult.Error("Registration successful but no data returned", response.code())
+                        _loginResult.value = ApiResult.Error("Login successful but no data returned", response.code())
                     }
                 } else {
-                    val errorMsg = response.errorBody()?.string() ?: response.message() ?: "Registration failed"
-                    _registrationResult.value = ApiResult.Error(errorMsg, response.code())
+                    val errorMsg = response.errorBody()?.string() ?: response.message() ?: "Login failed"
+                    _loginResult.value = ApiResult.Error(errorMsg, response.code())
                 }
             } catch (e: Exception) {
-                _registrationResult.value = ApiResult.Error(e.message ?: "An unexpected error occurred")
+                _loginResult.value = ApiResult.Error(e.message ?: "An unexpected error occurred")
             }
         }
     }
 
     // Optional: Call this to reset the state after it's been handled in the UI
-    fun clearRegistrationResult() {
-        _registrationResult.value = null
+    fun clearLoginResult() {
+        _loginResult.value = null
     }
 }

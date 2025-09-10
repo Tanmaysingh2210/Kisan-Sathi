@@ -18,12 +18,12 @@ import retrofit2.http.Path // If you have path parameters like /users/{id}
 
 interface ApiService {
 
-    @POST("http://10.0.2.2:3000/api/auth/login/") // Matches your Express.js route
+    @POST("api/auth/login/") // Matches your Express.js route
     suspend fun loginUser(@Body request: LoginRequest): Response<LoginResponse>
     @POST("api/auth/register/")
     suspend fun registerUser(@Body request: registration_request): Response<registration_response>
 
-    @POST("http://10.0.2.2:3000/api/auth/verify-otp/")
+    @POST("api/auth/verify-otp/")
     suspend fun verifyOtp(@Body request: verify_otp_request): Response<verify_otp_response>
 
     // Example for OTP verification if you have one
