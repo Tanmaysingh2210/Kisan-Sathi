@@ -34,6 +34,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -53,7 +54,7 @@ fun LoginScreen(
     val context = LocalContext.current // For Toasts
 
     val loginResult by loginViewModel.loginResult.collectAsState()
-
+// loginResult banya hai loginviewmodel se jiska naam loginResult as a result
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -151,6 +152,36 @@ fun LoginScreen(
                 Text("Sign In")
             }
         }
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Button(
+            onClick = {
+                navController?.navigate("forgetpassword")
+
+            },
+            modifier = Modifier.fillMaxWidth(),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color.White,      // 👈 background color
+                contentColor =  Color(0xFF31A05F)             // 👈 text/icon color
+            )
+
+
+        ) {
+
+            Text(text="forget password??")
+        }
+
+
+
+
+
+
+
+
+
+
+
+
         loginResult?.let { result ->
 
 
@@ -173,6 +204,7 @@ fun LoginScreen(
         }
     }
 }
+
 
 
 
