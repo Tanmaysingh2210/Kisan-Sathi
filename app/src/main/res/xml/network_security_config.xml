@@ -3,7 +3,7 @@
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">10.0.2.2</domain>
         <!-- For Emulator accessing localhost -->
-        <domain includeSubdomains="true">your_computer_local_ip</domain>
+<!--        <domain includeSubdomains="true">127.0.0.1</domain>-->
         <!-- e.g., 192.168.1.100, if on physical device -->
         <!-- Add your deployed domain here too if it's HTTP, though HTTPS is strongly recommended for production -->
     </domain-config>

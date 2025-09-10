@@ -14,7 +14,7 @@ data class LoginResponse(
 )
 
 data class registration_request(
-    val username: String,
+    val name: String,
     val email: String,
     val password: String
 )
@@ -22,4 +22,14 @@ data class registration_request(
 data class registration_response(
     val userId: String,
     val message: String
+)
+
+data class verify_otp_request(
+    val email: String,
+    val otp: String
+)
+
+data class verify_otp_response(
+    val message: String,
+    val token: String?= null
 )

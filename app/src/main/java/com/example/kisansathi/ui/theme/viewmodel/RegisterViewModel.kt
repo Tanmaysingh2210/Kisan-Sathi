@@ -7,27 +7,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.kisansathi.ui.theme.models.registration_request
 import com.example.kisansathi.ui.theme.models.registration_response
-import com.google.android.gms.identitycredentials.RegistrationRequest
+//import com.google.android.gms.identitycredentials.RegistrationRequest
 import com.example.kisansathi.network.RetrofitInstance
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-// Assuming ApiResult is defined as shown in previous examples:
-// sealed class ApiResult<out T> {
-//     data class Success<out T>(val data: T) : ApiResult<T>()
-//     data class Error(val message: String, val statusCode: Int? = null) : ApiResult<Nothing>()
-//     object Loading : ApiResult<Nothing>()
-// }
 
 class RegisterViewModel : ViewModel() { // In a real app, inject AuthRepository
 
-    // If you don't have AuthRepository yet, create a basic one:
-    // class AuthRepository(private val apiService: ApiService) {
-    //    suspend fun registerUser(registrationRequest: RegistrationRequest): Response<RegistrationResponse> {
-    //        return apiService.registerUser(registrationRequest)
-    //    }
-    // }
+
     private val authRepository = AuthRepository(RetrofitInstance.api)
 
     private val _registrationResult = MutableStateFlow<ApiResult<registration_response>?>(null)
@@ -40,7 +29,7 @@ class RegisterViewModel : ViewModel() { // In a real app, inject AuthRepository
                 // Assuming your RegistrationRequest model has 'name', 'email', 'password'
                 // Adjust if your model is different (e.g., uses 'username' instead of 'name')
                 val request = registration_request(
-                    username = name,
+                    name = name,
                     email = email,
                     password = password
                 )

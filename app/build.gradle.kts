@@ -60,7 +60,7 @@ dependencies {
   //  implementation("androidx.navigation:navigation-compose:2.7.7")
     implementation("androidx.compose.runtime:runtime:1.6.7")
     implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
-  //  implementation(libs.firebase.appdistribution.gradle)
+//    implementation(libs.firebase.appdistribution.gradle)
     implementation(libs.play.services.identity.credentials)
     debugImplementation("androidx.compose.ui:ui-tooling:1.6.7")
     implementation("androidx.activity:activity-compose:1.9.0")

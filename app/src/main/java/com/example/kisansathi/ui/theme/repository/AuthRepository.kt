@@ -4,7 +4,10 @@ import com.example.kisansathi.network.ApiService
 import com.example.kisansathi.ui.theme.models.LoginRequest
 import com.example.kisansathi.ui.theme.models.LoginResponse
 import com.example.kisansathi.ui.theme.models.registration_request
-import com.google.android.gms.identitycredentials.RegistrationResponse
+import com.example.kisansathi.ui.theme.models.registration_response
+import com.example.kisansathi.ui.theme.models.verify_otp_request
+import com.example.kisansathi.ui.theme.models.verify_otp_response
+//import com.google.android.gms.identitycredentials.RegistrationResponse
 import retrofit2.Response
 
 class AuthRepository(private val apiService: ApiService) {
@@ -13,8 +16,12 @@ class AuthRepository(private val apiService: ApiService) {
         return apiService.loginUser(loginRequest)
     }
 
-    suspend fun registerUser(request: registration_request):  Response<RegistrationResponse> {
+    suspend fun registerUser(request: registration_request):  Response<registration_response> {
         return apiService.registerUser(request)
+    }
+
+    suspend fun verifyOtp(otpVerificationRequest: verify_otp_request): Response<verify_otp_response> {
+        return apiService.verifyOtp((otpVerificationRequest))
     }
     // Add other methods that call ApiService functions
 }
