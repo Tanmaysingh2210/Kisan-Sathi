@@ -38,28 +38,6 @@ import androidx.compose.material.icons.filled.People
 
 @Composable
 
-//    Column(
-//        modifier = Modifier
-//            .fillMaxSize()
-//            .padding(32.dp),
-//        verticalArrangement = Arrangement.Top,
-//        horizontalAlignment = Alignment.CenterHorizontally
-//    ) {
-//        Row(
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .padding(vertical = 16.dp),
-//            horizontalArrangement = Arrangement.Center,
-//            verticalAlignment = Alignment.CenterVertically
-//        ) {
-//            IconButton(onClick = { /* Open menu logic here */ }) {
-//                Icon(
-//                    imageVector = Icons.Filled.MoreVert, // Or your custom menu icon
-//                    contentDescription = "Menu"
-//                )
-//            }
-//        }
-//    }
 fun DashboardPage(
     userName: String = "Ravi",
     location: String = "Vellore, Tamil Nadu",

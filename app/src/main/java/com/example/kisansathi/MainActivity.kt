@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Text
 import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,14 +24,16 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.kisansathi.ui.theme.AuthChoiceScreen
 import com.example.kisansathi.ForgotPasswordScreen
+import com.example.kisansathi.LocationAccess.AppFlow
 
 import com.example.kisansathi.ui.theme.KisanSathiTheme
 import kotlinx.coroutines.delay
 
+
+
 class MainActivity : ComponentActivity() {
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
-        // Enable Splash Screen
         installSplashScreen()
         super.onCreate(savedInstanceState)
 
@@ -37,16 +41,21 @@ class MainActivity : ComponentActivity() {
             KisanSathiTheme {
                 var showContent by remember { mutableStateOf(false) }
 
-                // Control splash duration
-                LaunchedEffect(Unit) {
-                    delay(2000) // 2 seconds delay
-                    showContent = true
-                }
-
-                if (showContent) {
-                    MainAppContent()
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    LaunchedEffect(Unit) {
+                        delay(1000) // 2 seconds delay
+                        showContent = true
+                    }
+                    if (showContent) {
+                        MainAppContent()
+                    }
                 }
             }
+
+
         }
     }
 }
@@ -57,11 +66,12 @@ object AppDestinations {
     const val REGISTER_SCREEN = "RegisterScreen"
     const val SIGN_UP_SCREEN = "signup"
     const val OTP_SCREEN ="OtpScreen/{email}"
-    const val DASHBOARD_SCREEN ="dashboard"
+    const val DASHBOARD_MAIN_LAYOUT ="dashboard_main_layout"
     const val FORGET_PASSWORD_SCREEN = "forget_password_screen"
     const val FORGOT_OTP_BASE_ROUTE = "forgot_otp_route" // Base route for OTP screen
     const val FORGOT_OTP_SCREEN_WITH_ARG = "$FORGOT_OTP_BASE_ROUTE/{email}" // Full route pattern
     const val NEW_PASSWORD_SCREEN = "new_password_screen"
+    const val LOCATION_POPUP = "location_popup"
 }
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
@@ -86,7 +96,7 @@ fun MainAppContent() {
             LoginScreen(
                 navController = navController,
                 onLoginSuccess = {
-                    navController.navigate(AppDestinations.DASHBOARD_SCREEN) {
+                    navController.navigate(AppDestinations.DASHBOARD_MAIN_LAYOUT) {
                         popUpTo(AppDestinations.LOGIN_SCREEN) { inclusive = true }
                     }
                 })
@@ -108,10 +118,11 @@ fun MainAppContent() {
             OtpScreen(
                 navController = navController,
                 onOtpVerified = {
-                    navController.navigate(AppDestinations.DASHBOARD_SCREEN) {
+                    navController.navigate(AppDestinations.LOCATION_POPUP) {
                         popUpTo(AppDestinations.OTP_SCREEN) { inclusive = true }
                     }
                 },
+
                 email = email
             )
         }
@@ -160,6 +171,18 @@ fun MainAppContent() {
             } else {
                 // NewPasswordScreen(navController = navController, email = email, resetToken = if (token == "no_token") null else token)
             }
+        }
+
+
+        composable(AppDestinations.DASHBOARD_MAIN_LAYOUT) {
+            MainDashboardLayout(appNavController = navController)
+            // Note: The 'appNavController' passed here is the main NavController.
+            // MainDashboardLayout will create its own internal 'dashboardNavController'
+            // for its BottomNavigationBar.
+        }
+
+        composable(AppDestinations.LOCATION_POPUP){
+            AppFlow(appNavController = navController)
         }
 
 
