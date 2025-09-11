@@ -1,8 +1,12 @@
 package com.example.kisansathi.network
 
 
+import com.example.kisansathi.ui.theme.models.ForgetPasswordRequest
+import com.example.kisansathi.ui.theme.models.ForgetPasswordResponse
 import com.example.kisansathi.ui.theme.models.LoginRequest
 import com.example.kisansathi.ui.theme.models.LoginResponse
+import com.example.kisansathi.ui.theme.models.VerifyForgotOtpRequest
+import com.example.kisansathi.ui.theme.models.VerifyForgotOtpResponse
 import com.google.android.gms.identitycredentials.RegistrationRequest
 import com.google.android.gms.identitycredentials.RegistrationResponse
 import retrofit2.Response // Use retrofit2.Response for full response details
@@ -26,6 +30,11 @@ interface ApiService {
     @POST("api/auth/verify-otp/")
     suspend fun verifyOtp(@Body request: verify_otp_request): Response<verify_otp_response>
 
+    @POST("api/auth/forget-password/")
+    suspend fun forgotPass(@Body request: ForgetPasswordRequest): Response<ForgetPasswordResponse>
+
+    @POST("api/auth/verify-resetotp") // Replace with your actual backend endpoint
+    suspend fun verifyForgotPasswordOtp(@Body request: VerifyForgotOtpRequest): Response<VerifyForgotOtpResponse>
     // Example for OTP verification if you have one
     // @POST("api/users/verify-otp")
     // suspend fun verifyOtp(@Body otpRequest: OtpRequest): Response<OtpResponse>

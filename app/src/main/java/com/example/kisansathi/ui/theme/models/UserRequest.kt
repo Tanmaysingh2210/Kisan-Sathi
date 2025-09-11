@@ -33,3 +33,22 @@ data class verify_otp_response(
     val message: String,
     val token: String?= null
 )
+
+data class ForgetPasswordRequest(
+    val email: String
+)
+
+data class ForgetPasswordResponse(
+    val message: String,
+)
+
+
+data class VerifyForgotOtpRequest(
+    val email: String,
+    val otp: String
+)
+
+data class VerifyForgotOtpResponse(
+    val message: String,
+    val resetToken: String? = null
+)

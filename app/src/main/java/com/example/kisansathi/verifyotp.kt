@@ -61,6 +61,7 @@ import com.example.kisansathi.ui.theme.viewmodel.OtpViewModel
 fun OtpScreen(navController: NavController?, email:String,onOtpVerified: () -> Unit,
               otpViewModel: OtpViewModel = viewModel()
 ) {
+
     val otpValues = remember { mutableStateListOf("", "", "", "", "", "") }
     val focusRequesters = List(6) { FocusRequester() }
     var localErrorMessage by remember { mutableStateOf<String?>(null)}
@@ -79,9 +80,6 @@ fun OtpScreen(navController: NavController?, email:String,onOtpVerified: () -> U
         }
     }
 
-
-
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -89,7 +87,6 @@ fun OtpScreen(navController: NavController?, email:String,onOtpVerified: () -> U
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
         Image(
             painter = painterResource(id = R.drawable.otpimg ),
             contentDescription= "Farmer Illustration",
@@ -100,7 +97,6 @@ fun OtpScreen(navController: NavController?, email:String,onOtpVerified: () -> U
 
         )
         Spacer(modifier = Modifier.height(70.dp))
-
         Row(
             modifier = Modifier.padding(vertical = 16.dp),
             horizontalArrangement = Arrangement.Center,
@@ -111,15 +107,12 @@ fun OtpScreen(navController: NavController?, email:String,onOtpVerified: () -> U
             Dot(isActive = false)
             Dot(isActive = true)
         }
-
         Spacer(modifier = Modifier.height(24.dp))
-
         Text(
             text = "Enter the 6-digit code we sent to",
             style = MaterialTheme.typography.bodyLarge,
             textAlign = TextAlign.Center
         )
-
         Spacer(modifier = Modifier.height(8.dp))
 
         Text(

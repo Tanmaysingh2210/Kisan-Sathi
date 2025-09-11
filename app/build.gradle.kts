@@ -85,6 +85,7 @@ dependencies {
 // Lifecycle (to use viewModelScope or LaunchedEffect safely)
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.4")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.4")
+    implementation("androidx.compose.material:material-icons-extended:1.6.0")
 
 
 }

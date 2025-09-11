@@ -161,8 +161,8 @@ fun LoginScreen(
             },
             modifier = Modifier.fillMaxWidth(),
             colors = ButtonDefaults.buttonColors(
-                containerColor = Color.White,      // 👈 background color
-                contentColor =  Color(0xFF31A05F)             // 👈 text/icon color
+                containerColor = Color.White,
+                contentColor =  Color(0xFF31A05F)
             )
 
 
@@ -170,16 +170,6 @@ fun LoginScreen(
 
             Text(text="forget password??")
         }
-
-
-
-
-
-
-
-
-
-
 
 
         loginResult?.let { result ->
